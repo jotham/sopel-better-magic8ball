@@ -8,9 +8,4 @@ Requires nltk module.
 ## Basic install of nltk:
 
     pip install nltk
-    python3 -c "import nltk; nltk.download()"
-    
-    ...
-
-    Downloader> d popular
-    Downloader> q
+    python3 -c "import nltk; nltk.download('popular')"
