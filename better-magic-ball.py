@@ -41,22 +41,19 @@ else:
    @sopel.module.commands('q')
    @sopel.module.example('.q some question')
    def f_ask_question(bot, trigger):
-     """Ask the Magic 8 ball a question weighted with Latin numerology."""
-     if trigger.group(2):
-         phrase = re.sub('[^a-zA-Z ]', '', trigger.group(2)).strip().lower()
-         results = get_definitions(phrase)
-         if results and len(results):
-             definitions = ". " .join(["{} {}".format(underline(pair[0]), pair[1]) for pair in results])
-             bot.say(definitions, trigger.sender, len(definitions)*2)
-         else:
-             bot.say('Can\'t find the etymology for "{}".'.format(phrase), trigger.sender)
-     return sopel.module.NOLIMIT
+      """Ask the Magic 8 ball a question weighted with Latin numerology."""
+      if trigger.group(2):
+         answer = get_answer_to_question(trigger.group(2))
+         bot.say('The 8-ball responds "{}"'.format(answer), trigger.sender)
+      else:
+         bot.say('Try asking a question.', trigger.sender)
+      return sopel.module.NOLIMIT
 
 if __name__ == '__main__':
    import sys
    if len(sys.argv) > 1:
       query = ' '.join(sys.argv[1:])
       answer = get_answer_to_question(query)
-      print('Answer: {}'.format(answer))
+      print('The 8-ball responds "{}"'.format(answer))
    else:
       print("{}: No question given.".format(sys.argv[0]))
